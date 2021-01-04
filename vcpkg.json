@@ -1,0 +1,12 @@
+{
+  "name": "turtleclub",
+  "version-string": "1.0.0",
+  "description": "Extends Papyrus for Master of Disguise SSE v1.5+",
+  "homepage": "https://github.com/fireundubh/TurtleClub",
+  "license": "MIT",
+  "dependencies": [
+    "boost-atomic",
+    "span-lite",
+    "spdlog"
+  ]
+}
