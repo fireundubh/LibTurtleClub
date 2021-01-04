@@ -1,8 +1,5 @@
 #pragma once
 
-#include "main.h"
-
-
 namespace PapyrusFaction
 {
 	using VM = RE::BSScript::IVirtualMachine;

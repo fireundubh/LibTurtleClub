@@ -1,8 +1,5 @@
 #pragma once
 
-#include "main.h"
-
-
 namespace PapyrusActor
 {
 	using VM = RE::BSScript::IVirtualMachine;

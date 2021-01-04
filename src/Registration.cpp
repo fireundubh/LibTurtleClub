@@ -1,11 +1,9 @@
 #include "Registration.h"
 
-
 #include "PapyrusActor.h"
 #include "PapyrusFaction.h"
 #include "PapyrusMisc.h"
 #include "PapyrusString.h"
-
 
 void Papyrus::Register()
 {

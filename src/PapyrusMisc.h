@@ -1,15 +1,12 @@
 #pragma once
 
-#include "main.h"
-
-
 namespace PapyrusMisc
 {
 	using VM = RE::BSScript::IVirtualMachine;
 	using StackID = RE::VMStackID;
 	using Severity = RE::BSScript::ErrorLogger::Severity;
 
-	inline std::map<const std::int32_t, const std::vector<std::int32_t>> FACTION_RACES_MAP = {
+	inline std::map<const std::int32_t, const std::vector<std::int32_t>> FACTION_RACES_MAP = { // NOLINT(cert-err58-cpp)
 		{ /* Faction */ 0, { /* Races */ 8 } },
 		{ 1, { 4, 12 } },
 		{ 2, { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 } },

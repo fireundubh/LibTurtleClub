@@ -2,23 +2,19 @@
 
 #include "PapyrusFaction.h"
 
-
 auto PapyrusFaction::SetAllies(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, RE::TESFaction* a_faction, RE::BGSListForm* a_factions, const bool a_selfIsFriendToOther, const bool a_otherIsFriendToSelf) -> void
 {
-	if (!a_faction)
-	{
+	if (!a_faction) {
 		a_vm->TraceStack("akFaction cannot be None", a_stackID, Severity::kWarning);
 		return;
 	}
 
-	if (!a_factions)
-	{
+	if (!a_factions) {
 		a_vm->TraceStack("akFactions cannot be None", a_stackID, Severity::kWarning);
 		return;
 	}
 
-	for (auto& form : a_factions->forms)
-	{
+	for (auto& form : a_factions->forms) {
 		if (form == nullptr)
 			continue;
 
@@ -33,29 +29,24 @@ auto PapyrusFaction::SetAllies(VM* a_vm, StackID a_stackID, RE::StaticFunctionTa
 
 	auto* const processLists = RE::ProcessLists::GetSingleton();
 
-	if (processLists)
-	{
+	if (processLists) {
 		processLists->ClearCachedFactionFightReactions();
 	}
 }
 
-
 auto PapyrusFaction::SetEnemies(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, RE::TESFaction* a_faction, RE::BGSListForm* a_factions, const bool a_selfIsNeutralToOther, const bool a_otherIsNeutralToSelf) -> void
 {
-	if (!a_faction)
-	{
+	if (!a_faction) {
 		a_vm->TraceStack("akFaction cannot be None", a_stackID, Severity::kWarning);
 		return;
 	}
 
-	if (!a_factions)
-	{
+	if (!a_factions) {
 		a_vm->TraceStack("akFactions cannot be None", a_stackID, Severity::kWarning);
 		return;
 	}
 
-	for (auto& form : a_factions->forms)
-	{
+	for (auto& form : a_factions->forms) {
 		if (form == nullptr)
 			continue;
 
@@ -70,17 +61,14 @@ auto PapyrusFaction::SetEnemies(VM* a_vm, StackID a_stackID, RE::StaticFunctionT
 
 	auto* const processLists = RE::ProcessLists::GetSingleton();
 
-	if (processLists)
-	{
+	if (processLists) {
 		processLists->ClearCachedFactionFightReactions();
 	}
 }
 
-
 auto PapyrusFaction::RegisterFuncs(VM* a_vm) -> bool
 {
-	if (!a_vm)
-	{
+	if (!a_vm) {
 		logger::info("PapyrusFaction - cannot get VMState");
 		return false;
 	}
