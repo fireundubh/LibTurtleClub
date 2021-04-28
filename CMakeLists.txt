@@ -112,7 +112,9 @@ if (MSVC)
     )
 endif()
 
-add_subdirectory("extern/CommonLibSSE" CommonLibSSE)
+if(NOT TARGET CommonLibSSE)
+    add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../CommonLibSSE" CommonLibSSE)
+endif()
 
 find_package(spdlog REQUIRED)
 
@@ -138,49 +140,58 @@ set(sources
         )
 
 source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        TREE
+            ${CMAKE_CURRENT_SOURCE_DIR}
         FILES
-        ${headers}
-        ${sources}
+            ${headers}
+            ${sources}
 )
 
 # ---- Create DLL ----
 
-add_library(${PROJECT_NAME} SHARED
+add_library(
+        ${PROJECT_NAME}
+        SHARED
         ${headers}
         ${sources}
         ${CMAKE_CURRENT_BINARY_DIR}/version.rc
         .clang-format
         )
 
-target_compile_features(${PROJECT_NAME}
+target_compile_features(
+        ${PROJECT_NAME}
         PUBLIC
-        cxx_std_17
+            cxx_std_20
         )
 
-target_compile_options(${PROJECT_NAME}
+target_compile_options(
+        ${PROJECT_NAME}
         PRIVATE
-        "$<$<BOOL:${MSVC}>:/TP>"
+            "$<$<BOOL:${MSVC}>:/TP>"
         )
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(
+        ${PROJECT_NAME}
         PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-        $<INSTALL_INTERFACE:src>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+            $<INSTALL_INTERFACE:src>
         )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(
+        ${PROJECT_NAME}
         PUBLIC
-        CommonLibSSE::CommonLibSSE
-        spdlog::spdlog
+            CommonLibSSE::CommonLibSSE
+            spdlog::spdlog
         )
 
-target_link_options(${PROJECT_NAME}
+target_link_options(
+        ${PROJECT_NAME}
         PUBLIC
-        ${LINK_OPTIONS_${CONFIG}}
+            ${LINK_OPTIONS_${CONFIG}}
         )
 
-target_precompile_headers(${PROJECT_NAME}
+target_precompile_headers(
+        ${PROJECT_NAME}
         PRIVATE
-        src/PCH.h
+            src/PCH.h
         )
