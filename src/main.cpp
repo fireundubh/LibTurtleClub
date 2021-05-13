@@ -1,4 +1,5 @@
-﻿#include "Registration.h"
+﻿#include "Version.h"
+#include "Papyrus\Registration.h"
 
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
@@ -11,7 +12,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 		return false;
 	}
 
-	*path /= "TurtleClub.log"sv;
+	*path /= fmt::format(FMT_STRING("{}.log"), PROJECT_NAME);
 	auto sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(path->string(), true);
 #endif
 
@@ -27,11 +28,11 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	set_default_logger(std::move(log));
 	spdlog::set_pattern("%g(%#): [%^%l%$] %v"s);
 
-	logger::info("TurtleClub v1.0.0");
+	logger::info(FMT_STRING("{} v{}"), PROJECT_NAME, TRTL_VERSION_VERSTRING);
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
-	a_info->name = "TurtleClub";
-	a_info->version = 1;
+	a_info->name = PROJECT_NAME;
+	a_info->version = TRTL_VERSION_MAJOR;
 
 	if (a_skse->IsEditor()) {
 		logger::critical("Loaded in editor, marking as incompatible"sv);
@@ -47,14 +48,13 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	return true;
 }
 
-
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
 	Init(a_skse);
 
 	Papyrus::Register();
 
-	logger::info("TurtleClub loaded");
+	logger::info(FMT_STRING("{} loaded"), PROJECT_NAME);
 
 	return true;
 }

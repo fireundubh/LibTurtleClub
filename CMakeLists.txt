@@ -7,7 +7,7 @@ set(VCPKG_TARGET_TRIPLET "x64-windows-static" CACHE STRING "")
 # ---- Project ----
 
 project(
-        TurtleClub
+        LibTurtleClub
         VERSION 1.0.0
         LANGUAGES CXX
 )
@@ -45,12 +45,12 @@ if (MSVC)
     set(COMPILE_OPTIONS_DEBUG
             /Zc:inline-	# Keep unreferenced COMDAT
             /JMC	# Just My Code debugging
-            )
+    )
 
     set(COMPILE_OPTIONS_RELEASE
             /Zc:inline	# Remove unreferenced COMDAT
             /JMC-	# Disable Just My Code debugging
-            )
+    )
 
     add_compile_options(
             /Gy	# Enable Function-Level Linking
@@ -88,7 +88,7 @@ if (MSVC)
             /external:W0
 
             /W4	# Warning level (all warnings)
-            /WX	# Warning level (warnings are errors)
+#            /WX	# Warning level (warnings are errors)
 
             "$<$<CONFIG:Debug>:${COMPILE_OPTIONS_DEBUG}>"
             "$<$<CONFIG:Release>:${COMPILE_OPTIONS_RELEASE}>"
@@ -98,13 +98,13 @@ if (MSVC)
             /INCREMENTAL	# Link Incrementally
             /OPT:NOREF	# Optimizations (keep functions/data never referenced)
             /OPT:NOICF	# Optimizations (prevent identical COMDAT folding)
-            )
+    )
 
     set(LINK_OPTIONS_RELEASE
             /INCREMENTAL:NO	# Link Incrementally
             /OPT:REF	# Optimizations (eliminate functions/data never referenced)
             /OPT:ICF	# Optimizations (perform identical COMDAT folding)
-            )
+    )
 
     add_link_options(
             "$<$<CONFIG:Debug>:${LINK_OPTIONS_DEBUG}>"
@@ -122,22 +122,19 @@ find_package(spdlog REQUIRED)
 
 set(headers
         src/PCH.h
-        src/Registration.h
-        src/PapyrusActor.h
-        src/PapyrusFaction.h
-        src/PapyrusMisc.h
-        src/PapyrusString.h
-        )
+		src/Constants.h
+        src/Papyrus/Registration.h
+        src/Papyrus/PapyrusActor.h
+        src/Papyrus/PapyrusMisc.h
+)
 
 set(sources
         src/main.cpp
         src/PCH.cpp
-        src/Registration.cpp
-        src/PapyrusActor.cpp
-        src/PapyrusFaction.cpp
-        src/PapyrusMisc.cpp
-        src/PapyrusString.cpp
-        )
+        src/Papyrus/Registration.cpp
+        src/Papyrus/PapyrusActor.cpp
+        src/Papyrus/PapyrusMisc.cpp
+)
 
 source_group(
         TREE
@@ -156,42 +153,49 @@ add_library(
         ${sources}
         ${CMAKE_CURRENT_BINARY_DIR}/version.rc
         .clang-format
-        )
+)
 
 target_compile_features(
         ${PROJECT_NAME}
         PUBLIC
             cxx_std_20
-        )
+)
 
 target_compile_options(
         ${PROJECT_NAME}
         PRIVATE
             "$<$<BOOL:${MSVC}>:/TP>"
-        )
+)
 
 target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
             $<INSTALL_INTERFACE:src>
-        )
+)
 
 target_link_libraries(
         ${PROJECT_NAME}
         PUBLIC
             CommonLibSSE::CommonLibSSE
             spdlog::spdlog
-        )
+)
 
 target_link_options(
         ${PROJECT_NAME}
         PUBLIC
             ${LINK_OPTIONS_${CONFIG}}
-        )
+)
 
 target_precompile_headers(
         ${PROJECT_NAME}
         PRIVATE
             src/PCH.h
-        )
+)
+
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "F:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/SKSE/Plugins/"
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Scripts/Source/LibTurtleClub.psc "F:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/Scripts/Source/LibTurtleClub.psc"
+)

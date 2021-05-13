@@ -1,8 +1,8 @@
 {
-  "name": "turtleclub",
+  "name": "libturtleclub",
   "version-string": "1.0.0",
   "description": "Extends Papyrus for Master of Disguise SSE v1.5+",
-  "homepage": "https://github.com/fireundubh/TurtleClub",
+  "homepage": "https://github.com/fireundubh/LibTurtleClub",
   "license": "MIT",
   "dependencies": [
     "boost-atomic",

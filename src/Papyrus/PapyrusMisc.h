@@ -42,9 +42,6 @@ namespace PapyrusMisc
 		{ 30, { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18 } },
 	};
 
-	auto SearchListForForms(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, RE::BGSListForm* a_list, std::vector<RE::TESForm*> a_forms) -> std::vector<bool>;
-	auto SearchListsForForm(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, RE::BGSListForm* a_lists, RE::TESForm* a_form) -> std::vector<bool>;
-	auto InRangeGameTime(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, float a_min, float a_max) -> bool;
 	auto LookupRaceWeightIndex(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, std::int32_t a_factionIndex, RE::TESRace* a_playerRace, std::vector<RE::TESRace*> a_races) -> std::int32_t;
 
 	auto RegisterFuncs(VM* a_vm) -> bool;

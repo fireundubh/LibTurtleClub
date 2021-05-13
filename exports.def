@@ -1,4 +1,4 @@
-LIBRARY	"TurtleClub"
+LIBRARY	"LibTurtleClub"
 EXPORTS
 SKSEPlugin_Query
 SKSEPlugin_Load
