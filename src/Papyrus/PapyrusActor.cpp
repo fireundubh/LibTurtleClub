@@ -39,11 +39,11 @@ namespace PapyrusActor
 	auto RegisterFuncs(VM* a_vm) -> bool
 	{
 		if (!a_vm) {
-			logger::info("PapyrusActor - cannot get VMState");
+			logger::info("PapyrusActor - cannot get VMState"sv);
 			return false;
 		}
 
-		a_vm->RegisterFunction("GetFactionStates", PROJECT_NAME, GetFactionStates);
+		a_vm->RegisterFunction("GetFactionStates"sv, PROJECT_NAME, GetFactionStates);
 
 		return true;
 	}

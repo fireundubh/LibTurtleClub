@@ -166,6 +166,6 @@ target_precompile_headers(
 add_custom_command(
     TARGET ${PROJECT_NAME}
     POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "F:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/SKSE/Plugins/"
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Scripts/Source/LibTurtleClub.psc "F:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/Scripts/Source/LibTurtleClub.psc"
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "G:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/SKSE/Plugins/"
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Scripts/Source/LibTurtleClub.psc "G:/ModOrganizer/Games/SkyrimSE/mods/LibTurtleClub/Scripts/Source/LibTurtleClub.psc"
 )

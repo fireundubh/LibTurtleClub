@@ -43,11 +43,11 @@ namespace PapyrusMisc
 	auto RegisterFuncs(VM* a_vm) -> bool
 	{
 		if (!a_vm) {
-			logger::info("PapyrusMisc - cannot get VMState");
+			logger::info("PapyrusMisc - cannot get VMState"sv);
 			return false;
 		}
 
-		a_vm->RegisterFunction("LookupRaceWeightIndex", PROJECT_NAME, LookupRaceWeightIndex);
+		a_vm->RegisterFunction("LookupRaceWeightIndex"sv, PROJECT_NAME, LookupRaceWeightIndex);
 
 		return true;
 	}
