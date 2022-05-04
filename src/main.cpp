@@ -33,19 +33,6 @@ namespace
 	}
 }
 
-// This export is only loaded by SKSE for 1.6 and up.
-extern "C" DLLEXPORT constinit auto SKSEPlugin_Version = []() {
-	SKSE::PluginVersionData v;
-
-	v.PluginName(PROJECT_NAME);
-	v.PluginVersion(TRTL_VERSION_MAJOR);
-	v.AuthorName("fireundubh");
-	v.UsesAddressLibrary(true);
-	v.CompatibleVersions({ SKSE::RUNTIME_LATEST, SKSE::RUNTIME_1_5_97 });
-
-	return v;
-}();
-
 // This export is only loaded by SKSE for 1.5 and below
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
 {
@@ -66,6 +53,19 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 
 	return true;
 }
+
+// This export is only loaded by SKSE for 1.6 and up.
+extern "C" DLLEXPORT constinit auto SKSEPlugin_Version = []() {
+	SKSE::PluginVersionData v;
+
+	v.PluginName(PROJECT_NAME);
+	v.PluginVersion(TRTL_VERSION_MAJOR);
+	v.AuthorName("fireundubh");
+	v.UsesAddressLibrary(true);
+	v.CompatibleVersions({ SKSE::RUNTIME_LATEST, SKSE::RUNTIME_1_5_97 });
+
+	return v;
+}();
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
