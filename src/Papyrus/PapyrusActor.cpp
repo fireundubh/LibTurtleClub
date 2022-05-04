@@ -36,6 +36,46 @@ namespace PapyrusActor
 		return vec;
 	}
 
+	auto GetWornEquipment(VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*, RE::Actor* a_actor, bool a_leftWeapon, bool a_rightWeapon) -> std::vector<RE::TESForm*>
+	{
+		std::vector<RE::TESForm*> vec;
+
+		std::vector<std::uint32_t> a_slots = {};
+
+		if (!a_actor) {
+			a_vm->TraceStack("akActor cannot be None", a_stackID, Severity::kInfo);
+			return vec;
+		}
+
+		auto* changes = a_actor->GetInventoryChanges();
+
+		if (!changes) {
+			a_vm->TraceStack("akActor does not have inventory", a_stackID, Severity::kInfo);
+			return vec;
+		}
+
+		vec.push_back(changes->GetArmorInSlot(31));
+		vec.push_back(changes->GetArmorInSlot(32));
+		vec.push_back(changes->GetArmorInSlot(33));
+		vec.push_back(changes->GetArmorInSlot(35));
+		vec.push_back(changes->GetArmorInSlot(36));
+		vec.push_back(changes->GetArmorInSlot(37));
+		vec.push_back(changes->GetArmorInSlot(39));
+		vec.push_back(changes->GetArmorInSlot(42));
+
+		if (a_leftWeapon) {
+			auto* lweapon = a_actor->GetEquippedObject(true);
+			vec.push_back(lweapon);
+		}
+
+		if (a_rightWeapon) {
+			auto* rweapon = a_actor->GetEquippedObject(false);
+			vec.push_back(rweapon);
+		}
+
+		return vec;
+	}
+
 	auto RegisterFuncs(VM* a_vm) -> bool
 	{
 		if (!a_vm) {
@@ -44,6 +84,7 @@ namespace PapyrusActor
 		}
 
 		a_vm->RegisterFunction("GetFactionStates"sv, PROJECT_NAME, GetFactionStates);
+		a_vm->RegisterFunction("GetWornEquipment"sv, PROJECT_NAME, GetWornEquipment);
 
 		return true;
 	}
