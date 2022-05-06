@@ -11,5 +11,8 @@ Form[] Function GetWornEquipment(Actor akActor, Bool abWeaponL, Bool abWeaponR) 
 
 { Misc }
 
+; Returns whether disguise can activate based on map of mutually exclusive faction indices
+Bool Function CanDisguiseActivate(Int aiFactionIndex, Bool[] akFactionStates) Global Native
+
 ; Returns index to `akPlayerRace` in `argRaces` after checking if `akPlayerRace` is mapped to `aiFactionIndex`
 Int Function LookupRaceWeightIndex(Int aiFactionIndex, Race akPlayerRace, Race[] argRaces) Global Native
