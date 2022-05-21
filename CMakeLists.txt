@@ -73,8 +73,8 @@ if (MSVC)
     endif ()
 
     add_compile_options(
-        /Zc:preprocessor # Enable preprocessor conformance mode
-        /W4 # Warning level (all warnings)
+        /bigobj # support large object file format
+        /utf-8  # assume UTF-8 sources even without a BOM
 
         # warnings -> errors
         /we4715 # 'function' : not all control paths return a value
@@ -108,12 +108,9 @@ if (MSVC)
 endif ()
 
 check_ipo_supported(RESULT USE_IPO OUTPUT IPO_OUTPUT)
-if (USE_IPO)
-    message("Enabling interprocedural optimizations.")
-    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
-else ()
-    message("Interprocedural optimizations are not supported.")
-endif ()
+if(USE_IPO)
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION "$<$<CONFIG:RELEASE>:ON>")
+endif()
 
 # ---- Configure target DLL ----
 
@@ -132,9 +129,15 @@ target_compile_features(
         cxx_std_23
 )
 
-target_compile_definitions(${PROJECT_NAME}
+target_compile_definitions(
+    ${PROJECT_NAME}
     PUBLIC
-        BOOST_STL_INTERFACES_DISABLE_CONCEPTS
+        WINVER=0x0601	# windows 7, minimum supported version by skyrim special edition
+        _WIN32_WINNT=0x0601
+        "$<$<BOOL:${SKSE_SUPPORT_XBYAK}>:SKSE_SUPPORT_XBYAK=1>"
+        "$<$<BOOL:${ENABLE_SKYRIM_SE}>:ENABLE_SKYRIM_SE=1>"
+        "$<$<BOOL:${ENABLE_SKYRIM_AE}>:ENABLE_SKYRIM_AE=1>"
+        "$<$<BOOL:${ENABLE_SKYRIM_VR}>:ENABLE_SKYRIM_VR=1>"
 )
 
 target_include_directories(
