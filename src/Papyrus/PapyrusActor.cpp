@@ -83,8 +83,11 @@ namespace PapyrusActor
 			return false;
 		}
 
-		a_vm->RegisterFunction("GetFactionStates"sv, PROJECT_NAME, GetFactionStates);
-		a_vm->RegisterFunction("GetWornEquipment"sv, PROJECT_NAME, GetWornEquipment);
+		auto* plugin = SKSE::PluginDeclaration::GetSingleton();
+		auto project_name = plugin->GetName();
+
+		a_vm->RegisterFunction("GetFactionStates"sv, project_name, GetFactionStates);
+		a_vm->RegisterFunction("GetWornEquipment"sv, project_name, GetWornEquipment);
 
 		return true;
 	}

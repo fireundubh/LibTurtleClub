@@ -73,8 +73,11 @@ namespace PapyrusMisc
 			return false;
 		}
 
-		a_vm->RegisterFunction("CanDisguiseActivate"sv, PROJECT_NAME, CanDisguiseActivate);
-		a_vm->RegisterFunction("LookupRaceWeightIndex"sv, PROJECT_NAME, LookupRaceWeightIndex);
+		auto* plugin = SKSE::PluginDeclaration::GetSingleton();
+		auto project_name = plugin->GetName();
+
+		a_vm->RegisterFunction("CanDisguiseActivate"sv, project_name, CanDisguiseActivate);
+		a_vm->RegisterFunction("LookupRaceWeightIndex"sv, project_name, LookupRaceWeightIndex);
 
 		return true;
 	}
